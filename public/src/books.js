@@ -30,9 +30,9 @@ function getBorrowersForBook(book, accounts) {
   let finalArray = [];
   const borrow= book.borrows;
   for(let borrowed in borrow){
-    let id = borrow[borrowed].id;
+    let idValue = borrow[borrowed].id;
     for(let accountInfo in accounts){
-      if(accounts[accountInfo].id === id && (finalArray.length < 10)){
+      if(accounts[accountInfo].id === idValue && (finalArray.length < 10)){
         accounts[accountInfo].returned = borrow[borrowed].returned;
         finalArray.push(accounts[accountInfo]);
       }

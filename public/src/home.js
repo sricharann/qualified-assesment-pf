@@ -20,46 +20,43 @@ function getBooksBorrowedCount(books) {
 }
 
 function getMostCommonGenres(books) {
-  let resultArray = new Array(5);
   let genreArray = [];
   for(let genreObj in books){
     genreArray.push(books[genreObj].genre);
   }
   const uniqueArry = [...new Set(genreArray)];
-  let result = [];
+  let resultArray = [];
   for(let k=0; k<uniqueArry.length;k++){
-    let obj ={name:"",count:0 };
+    let objVal ={name:"",count:0 };
     for(let i=0;i<genreArray.length;i++){
       if(uniqueArry[k] == genreArray[i]){
-        obj.name = genreArray[i];
-        obj.count += 1;
+        objVal.name = genreArray[i];
+        objVal.count += 1;
       }
-    }result.push(obj);
+    }resultArray.push(objVal);
   }
-  result.sort((resultArrayA, resultArrayB) => (resultArrayA.count>resultArrayB.count? -1:1));
-  // console.log('before '+result);
-  result.length = 5;
-  //console.log(result);
-  return result;
+  resultArray.sort((resultArrayA, resultArrayB) => (resultArrayA.count>resultArrayB.count? -1:1));
+  resultArray.length = 5;
+  return resultArray;
 }
 
 
 function getMostPopularBooks(books) {
-  let result = [];
   let resultArray = [];
+  let tempArray = [];
   for(let book in books){
     let bookObj = new Object();
     bookObj.name = books[book].title;
     bookObj.count = books[book].borrows.length;
-    resultArray.push(bookObj);
+    tempArray.push(bookObj);
   }
-  resultArray.sort((a,b) => b.count - a.count);
-  result = resultArray.slice(0,5);
-  return result;
+  tempArray.sort((a,b) => b.count - a.count);
+  resultArray = tempArray.slice(0,5);
+  return resultArray;
 }
 
 function getMostPopularAuthors(books, authors) {
-  let result = [];
+  let resultArray = [];
   let mostPopularResult = [];
   for(let author in authors){
     for(book in books){
@@ -67,11 +64,11 @@ function getMostPopularAuthors(books, authors) {
       if(books[book].authorId === authors[author].id){
         authorObj.name = authors[author].name.first+' '+authors[author].name.last;
         authorObj.count = books[book].borrows.length;
-        result.push(authorObj);
+        resultArray.push(authorObj);
       }
     }
-  }result.sort((a,b) => b.count - a.count);
-  mostPopularResult = result.slice(0,5);
+  }resultArray.sort((a,b) => b.count - a.count);
+  mostPopularResult = resultArray.slice(0,5);
   return mostPopularResult;
 }
 
