@@ -1,9 +1,9 @@
 function findAuthorById(authors, id) {
-  return authors.find((author)=> author.id === id);
+  return lengthFinderHelper(authors, id);
 }
 
 function findBookById(books, id) {
-  return books.find((book)=> book.id === id);
+  return lengthFinderHelper(books, id);
 }
 
 function partitionBooksByBorrowedStatus(books) {
@@ -12,8 +12,16 @@ function partitionBooksByBorrowedStatus(books) {
   let finalArray = [];
   for(let book in books){
     let borrowerObj = books[book].borrows;
+    // let result = borrowerObj.map((borrowerBook) => borrowerBook.returned);
+    // let tempReturnedArray = result.filter((result)=> result === true) ;
+    // returnedBooksArray.push(tempReturnedArray);
+
+    // let tempBorrowedArray = result.filter((result)=> result === false) ;
+    // borrowedBooksArray.push(tempBorrowedArray);
+
     for(let borrower in borrowerObj){
-      if(borrowerObj[borrower].returned === true){
+      let bookReturned = borrowerObj.map((borrowerBook) => borrowerBook.returned);
+      if(bookReturned[borrower] === true){
         returnedBooksArray.push(borrowerObj[borrower]);
         break;
       } else{
@@ -40,6 +48,11 @@ function getBorrowersForBook(book, accounts) {
     });
   }
   return finalArray;
+}
+
+//Helper function
+function lengthFinderHelper(arrayValues, idVal){
+  return arrayValues.find((arrayValue)=> arrayValue.id === idVal)
 }
 
 module.exports = {
