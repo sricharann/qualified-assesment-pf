@@ -12,12 +12,6 @@ function partitionBooksByBorrowedStatus(books) {
   let finalArray = [];
   for(let book in books){
     let borrowerObj = books[book].borrows;
-    // let result = borrowerObj.map((borrowerBook) => borrowerBook.returned);
-    // let tempReturnedArray = result.filter((result)=> result === true) ;
-    // returnedBooksArray.push(tempReturnedArray);
-
-    // let tempBorrowedArray = result.filter((result)=> result === false) ;
-    // borrowedBooksArray.push(tempBorrowedArray);
 
     for(let borrower in borrowerObj){
       let bookReturned = borrowerObj.map((borrowerBook) => borrowerBook.returned);
