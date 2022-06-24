@@ -35,13 +35,12 @@ function getBooksPossessedByAccount(account, books, authors) {
         });
         
         if(matchedId && matchedId.returned === false){
-          for(let author in authors){
-            if(books[book].authorId == authors[author].id){
-              books[book].author = authors[author];
+          authors.filter((author) => {
+            if(author.id === books[book].authorId){
+              books[book].author = author;
               resultArray.push(books[book]);
             }
-          }
-        
+          });
       }
   }
   return resultArray;
