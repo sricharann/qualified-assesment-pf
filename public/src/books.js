@@ -31,12 +31,13 @@ function getBorrowersForBook(book, accounts) {
   const borrow= book.borrows;
   for(let borrowed in borrow){
     let idValue = borrow[borrowed].id;
-    for(let accountInfo in accounts){
-      if(accounts[accountInfo].id === idValue && (finalArray.length < 10)){
-        accounts[accountInfo].returned = borrow[borrowed].returned;
-        finalArray.push(accounts[accountInfo]);
+    let returnedVal = borrow[borrowed].returned;
+     accounts.reduce((resultArray, account) => {
+      if(account.id === idValue && finalArray.length <10){
+        account.returned = returnedVal;
+        finalArray.push(account);
       }
-    }
+    });
   }
   return finalArray;
 }
